@@ -46,7 +46,9 @@ For Software: front_end , back_end
 
 ![Screenshot 2025-01-26 085238](https://github.com/user-attachments/assets/5c95098b-ff2b-4c2a-bf0a-03878f867d99)
 
-For Hardware:
+team contribution
+Arathi krishna VB : backend
+Avanthika AB : front end
 
 
 Made with ❤️ at TinkerHub
