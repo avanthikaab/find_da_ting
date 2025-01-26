@@ -43,8 +43,8 @@ For Software: front_end , back_end
 ![Screenshot 2025-01-26 083314](https://github.com/user-attachments/assets/57fca363-866a-420e-93ee-47fa5e340477)
 
 # Diagrams
-![Workflow](Add your workflow/architecture diagram here)
-*Add caption explaining your workflow*
+
+![Screenshot 2025-01-26 085238](https://github.com/user-attachments/assets/5c95098b-ff2b-4c2a-bf0a-03878f867d99)
 
 For Hardware:
 
