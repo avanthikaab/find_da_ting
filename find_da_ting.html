@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome to Personal Certificate Storage</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      background-color: #ADD8E6; /* Light blue background for Welcome Page */
+      color: #333;
+    }
+    .welcome-section, .form-section {
+      display: none;
+      width: 100%;
+      text-align: center;
+      padding: 20px;
+    }
+    .welcome-section.active, .form-section.active {
+      display: block;
+    }
+    .welcome-text {
+      font-size: 48px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+    .get-started-button {
+      background-color: #4CAF50;
+      color: #fff;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .get-started-button:hover {
+      background-color: #3e8e41;
+    }
+    form {
+      margin: auto;
+      width: 300px;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      background-color: #fff;
+    }
+    input {
+      width: calc(100% - 20px);
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      padding: 10px 15px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .certificates {
+      margin-top: 20px;
+    }
+    .certificates a {
+      text-decoration: none;
+      color: #007bff;
+    }
+    .certificates a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <!-- Welcome Page -->
+  <div class="welcome-section active" id="welcomeSection">
+    <h1 class="welcome-text">Welcome!</h1>
+    <button class="get-started-button" onclick="showFormSection()">Get Started</button>
+  </div>
+
+  <!-- Personal Certificate Storage Page -->
+  <div class="form-section" id="formSection">
+    <form id="infoForm">
+      <h2>Register</h2>
+      <input type="text" id="name" placeholder="Name" required />
+      <input type="number" id="age" placeholder="Age" required />
+      <input type="text" id="username" placeholder="Username" required />
+      <input type="password" id="password" placeholder="Password" required />
+      <button type="button" onclick="register()">Register</button>
+    </form>
+
+    <form id="loginForm" style="display: none;">
+      <h2>Login</h2>
+      <input type="text" id="loginUsername" placeholder="Username" required />
+      <input type="password" id="loginPassword" placeholder="Password" required />
+      <button type="button" onclick="login()">Login</button>
+    </form>
+
+    <div id="certificates" class="certificates" style="display: none;">
+      <h2>Your Certificates</h2>
+      <p><a href="https://docs.google.com/document/d/1WZNwOLENnyUvPC03rs_JffnKgZe_LYYiOZdDUSiXgn0/edit?usp=drive_link" target="_blank">birth certificate</a></p>
+      <p><a href="https://docs.google.com/document/d/1y__XwI307BoBFzZ7KopHzFMEtycFFE1RKku8y0uUSRY/edit?usp=drive_link" target="_blank">sslc certificate</a></p>
+      <p><a href="https://docs.google.com/document/d/1PyC0gErfYDlx9wJgKekta2yolds7lNzeotdVy6KFEXc/edit?usp=drive_link" target="_blank">income certificate</a></p>
+    </div>
+  </div>
+
+  <script>
+    const API_URL = "http://localhost:3000"; // Replace with your Node.js backend URL
+
+    function showFormSection() {
+      document.getElementById("welcomeSection").classList.remove("active");
+      document.getElementById("formSection").classList.add("active");
+    }
+
+    async function register() {
+      const name = document.getElementById("name").value;
+      const age = document.getElementById("age").value;
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+
+      if (name && age && username && password) {
+        try {
+          const response = await fetch(`${API_URL}/register`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            },            
+            body: JSON.stringify({ name, age, username, password })
+          });
+
+          if (response.ok) {
+            alert("Registration successful! Please log in.");
+            document.getElementById("infoForm").style.display = "none";
+            document.getElementById("loginForm").style.display = "block";
+          } else {
+            const error = await response.json();
+            alert(error.message || "Registration failed.");
+          }
+        } catch (error) {
+          console.error("Error:", error);
+          alert("An error occurred. Please try again later.");
+        }
+      } else {
+        alert("Please fill in all fields!");
+      }
+    }
+
+    async function login() {
+      const username = document.getElementById("loginUsername").value;
+      const password = document.getElementById("loginPassword").value;
+
+      if (username && password) {
+        try {
+          const response = await fetch($,{API_URL}/login, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ username, password })
+          });
+
+          if (response.ok) {
+            alert("Login successful!");
+            document.getElementById("loginForm").style.display = "none";
+            document.getElementById("certificates").style.display = "block";
+          } else {
+            const error = await response.json();
+            alert(error.message || "Login failed.");
+          }
+        } catch (error) {
+          console.error("Error:", error);
+          alert("An error occurred. Please try again later.");
+        }
+      } else {
+        alert("Please fill in all fields!");
+      }
+    }
+  </script>
+</body>
+</html>
